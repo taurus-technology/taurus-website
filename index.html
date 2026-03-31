@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taurus Technology Solutions — AI-Powered Business Tools</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --dark: #111318;
+    --dark-2: #181b22;
+    --dark-3: #1e222b;
+    --silver: #c8cdd6;
+    --silver-light: #e2e6ed;
+    --white: #f5f6f8;
+    --accent: #4a9eff;
+    --accent-glow: rgba(74, 158, 255, 0.15);
+    --chrome-gradient: linear-gradient(135deg, #d4d8e0, #a0a7b5, #d4d8e0);
+    --text-muted: #6b7280;
+    --text-dim: #4b5260;
+    --border: rgba(200, 205, 214, 0.08);
+    --border-hover: rgba(200, 205, 214, 0.15);
+  }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: var(--dark); color: var(--silver); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+  /* ===== NAV ===== */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; background: rgba(17, 19, 24, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  .nav-logo { display: flex; align-items: center; gap: 0; }
+  .nav-logo img { height: 56px; width: auto; border-radius: 0; object-fit: cover; image-rendering: -webkit-optimize-contrast; mix-blend-mode: lighten; }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { font-size: 13px; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; letter-spacing: 0.3px; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta { padding: 9px 22px; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+  .nav-cta:hover { background: #3b8de6; transform: translateY(-1px); }
+
+  /* ===== HERO ===== */
+  .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 40px 80px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(74, 158, 255, 0.06) 0%, transparent 70%); pointer-events: none; }
+  .hero-content { max-width: 750px; position: relative; z-index: 1; }
+  .hero-logo-container { margin-bottom: 36px; }
+  .hero-logo { width: 480px; height: auto; border-radius: 0; image-rendering: -webkit-optimize-contrast; mix-blend-mode: lighten; }
+  .hero-badge { display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(74, 158, 255, 0.2); margin-bottom: 28px; }
+  .hero h1 { font-size: 52px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 20px; color: var(--white); }
+  .hero h1 .highlight { background: linear-gradient(135deg, var(--accent), #7cb8ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero p { font-size: 18px; color: var(--text-muted); max-width: 560px; margin: 0 auto 40px; line-height: 1.7; }
+  .hero-actions { display: flex; gap: 14px; justify-content: center; align-items: center; }
+  .btn-primary { padding: 14px 32px; background: var(--accent); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { background: #3b8de6; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(74, 158, 255, 0.25); }
+  .btn-secondary { padding: 14px 32px; background: transparent; color: var(--silver); border: 1.5px solid var(--border-hover); border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+  .btn-secondary:hover { border-color: var(--silver); color: var(--white); }
+
+  /* ===== VIDEO SHOWCASE ===== */
+  .video-section { padding: 0 40px 100px; position: relative; margin-top: -40px; }
+  .video-wrapper { max-width: 900px; margin: 0 auto; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-hover); box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 80px rgba(74, 158, 255, 0.08); }
+  .video-wrapper video { width: 100%; display: block; border-radius: 15px; }
+  .video-label { text-align: center; margin-top: 16px; font-size: 13px; color: var(--text-dim); letter-spacing: 0.3px; }
+
+  /* ===== PRODUCT INTRO ===== */
+  .product-section { padding: 100px 40px; position: relative; }
+  .product-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--border-hover), transparent); }
+  .section-header { text-align: center; max-width: 650px; margin: 0 auto 60px; }
+  .section-tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .section-header h2 { font-size: 36px; font-weight: 700; color: var(--white); letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.2; }
+  .section-header p { font-size: 16px; color: var(--text-muted); line-height: 1.7; }
+
+  .product-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .product-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 16px; padding: 32px; transition: all 0.3s; }
+  .product-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
+  .card-icon.chat { background: rgba(74, 158, 255, 0.1); }
+  .card-icon.docs { background: rgba(34, 197, 94, 0.1); }
+  .card-icon.present { background: rgba(245, 158, 11, 0.1); }
+  .card-icon.sheets { background: rgba(16, 185, 129, 0.1); }
+  .card-icon.knowledge { background: rgba(168, 85, 247, 0.1); }
+  .card-icon.brand { background: rgba(244, 114, 182, 0.1); }
+  .product-card h3 { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+  .product-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ===== HOW IT WORKS ===== */
+  .how-section { padding: 100px 40px; background: var(--dark-2); }
+  .steps { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+  .step { display: flex; gap: 28px; padding: 32px 0; position: relative; }
+  .step:not(:last-child) { border-bottom: 1px solid var(--border); }
+  .step-num { width: 48px; height: 48px; border-radius: 12px; background: var(--accent-glow); border: 1px solid rgba(74, 158, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+  .step-content h3 { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+  .step-content p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ===== PRICING ===== */
+  .pricing-section { padding: 100px 40px; }
+  .pricing-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .price-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 16px; padding: 32px; text-align: center; transition: all 0.3s; }
+  .price-card:hover { border-color: var(--border-hover); transform: translateY(-4px); }
+  .price-card.featured { border-color: rgba(74, 158, 255, 0.3); background: linear-gradient(180deg, rgba(74, 158, 255, 0.04), var(--dark-2)); position: relative; }
+  .price-card.featured::before { content: 'Most Popular'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); padding: 4px 14px; background: var(--accent); color: white; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 20px; }
+  .price-tier { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 12px; }
+  .price-amount { font-size: 42px; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+  .price-amount span { font-size: 16px; font-weight: 400; color: var(--text-muted); }
+  .price-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .price-features { list-style: none; text-align: left; margin-bottom: 28px; }
+  .price-features li { font-size: 13px; color: var(--text-muted); padding: 6px 0; display: flex; align-items: center; gap: 10px; }
+  .price-features li::before { content: '✓'; color: var(--accent); font-weight: 700; font-size: 12px; }
+  .price-btn { width: 100%; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; }
+  .price-btn.primary { background: var(--accent); color: white; }
+  .price-btn.primary:hover { background: #3b8de6; }
+  .price-btn.outline { background: transparent; color: var(--silver); border: 1.5px solid var(--border-hover); }
+  .price-btn.outline:hover { border-color: var(--silver); color: var(--white); }
+
+  /* ===== CTA / WAITLIST ===== */
+  .cta-section { padding: 100px 40px; background: var(--dark-2); text-align: center; }
+  .cta-section h2 { font-size: 36px; font-weight: 700; color: var(--white); margin-bottom: 12px; letter-spacing: -0.5px; }
+  .cta-section p { font-size: 16px; color: var(--text-muted); margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .waitlist-form { display: flex; flex-direction: column; gap: 14px; max-width: 480px; margin: 0 auto; text-align: left; }
+  .waitlist-row { display: flex; gap: 12px; }
+  .waitlist-row > * { flex: 1; }
+  .waitlist-form input, .waitlist-form select { width: 100%; padding: 14px 18px; background: var(--dark-3); border: 1.5px solid var(--border-hover); border-radius: 10px; font-size: 14px; color: var(--white); outline: none; font-family: inherit; box-sizing: border-box; }
+  .waitlist-form input::placeholder { color: var(--text-dim); }
+  .waitlist-form select { appearance: none; -webkit-appearance: none; cursor: pointer; }
+  .waitlist-form select option { background: var(--dark-3); color: var(--white); }
+  .waitlist-form input:focus, .waitlist-form select:focus { border-color: var(--accent); }
+  .waitlist-form button { padding: 14px 28px; background: var(--accent); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; width: 100%; }
+  .waitlist-form button:hover { background: #3b8de6; }
+  .waitlist-note { font-size: 12px; color: var(--text-dim); margin-top: 14px; text-align: center; }
+  .success-msg { display: none; padding: 14px 24px; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 10px; color: #4ade80; font-size: 14px; max-width: 460px; margin: 0 auto; }
+
+  /* ===== FOOTER ===== */
+  footer { padding: 40px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .footer-left { display: flex; align-items: center; gap: 14px; }
+  .footer-left img { height: 42px; border-radius: 0; image-rendering: -webkit-optimize-contrast; mix-blend-mode: lighten; }
+  .footer-info { display: flex; flex-direction: column; gap: 2px; }
+  .footer-info span { font-size: 12px; color: var(--text-dim); }
+  .footer-address { font-size: 11px !important; color: var(--text-dim); opacity: 0.7; }
+  .footer-right { font-size: 12px; color: var(--text-dim); }
+  .footer-right a { color: var(--text-muted); text-decoration: none; margin-left: 20px; }
+  .footer-right a:hover { color: var(--white); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links a { display: none; }
+    .nav-cta { display: none; }
+    .nav-logo img { height: 40px; }
+    .hero { padding: 80px 20px 50px; min-height: auto; }
+    .hero-content { max-width: 100%; }
+    .hero-logo { width: 240px; }
+    .hero h1 { font-size: 26px; letter-spacing: -0.5px; }
+    .hero p { font-size: 14px; max-width: 100%; }
+    .hero-actions { flex-direction: column; width: 100%; }
+    .hero-actions a { width: 100%; text-align: center; box-sizing: border-box; }
+    .video-section { padding: 0 20px 60px; }
+    .video-wrapper { border-radius: 10px; }
+    .section-header { padding: 0 4px; }
+    .section-header h2 { font-size: 24px; }
+    .section-header p { font-size: 13px; }
+    .product-section { padding: 60px 20px; }
+    .product-grid { grid-template-columns: 1fr; }
+    .how-section { padding: 60px 20px; }
+    .step { gap: 16px; }
+    .step-content h3 { font-size: 15px; }
+    .step-content p { font-size: 13px; }
+    .pricing-section { padding: 60px 20px; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 100%; }
+    .price-card.featured { margin: 0; }
+    .price-amount { font-size: 34px; }
+    .cta-section { padding: 60px 20px; }
+    .cta-section h2 { font-size: 26px; }
+    .cta-section p { font-size: 14px; }
+    .waitlist-form { gap: 10px; max-width: 100%; }
+    .waitlist-row { flex-direction: column; gap: 10px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 30px 20px; }
+    .footer-left { flex-direction: column; align-items: center; }
+    .footer-left img { height: 32px; }
+    .footer-info { display: flex; flex-direction: column; gap: 4px; }
+  }
+  @media (max-width: 390px) {
+    .hero h1 { font-size: 24px; }
+    .hero-logo { width: 200px; }
+    .section-header h2 { font-size: 22px; }
+    .price-amount { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="taurus-logo-transparent.png" alt="Taurus Technology Solutions">
+  </a>
+  <div class="nav-links">
+    <a href="#product">Product</a>
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-logo-container">
+      <img src="taurus-logo-transparent.png" alt="Taurus Technology Solutions" class="hero-logo">
+    </div>
+    <h1>Your team's AI <span class="highlight">Sidekick</span>, branded as your own</h1>
+    <p>A white-labeled AI assistant portal for your business. Your employees chat with AI, create documents, build presentations, and search company knowledge — all under your brand.</p>
+    <div class="hero-actions">
+      <a href="#waitlist" class="btn-primary">Get Early Access &#8594;</a>
+      <a href="#product" class="btn-secondary">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO SHOWCASE -->
+<section class="video-section">
+  <div class="video-wrapper">
+    <video autoplay muted loop playsinline controls>
+      <source src="sidekick-promo-v2.mp4" type="video/mp4">
+    </video>
+  </div>
+  <p class="video-label">See Sidekick in action</p>
+</section>
+
+<!-- PRODUCT -->
+<section class="product-section" id="product">
+  <div class="section-header">
+    <div class="section-tag">What Sidekick Does</div>
+    <h2>Enterprise-grade AI, sized for small business</h2>
+    <p>Everything your team needs to work smarter — no technical setup, no AI expertise, no training required. Just log in and go.</p>
+  </div>
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="card-icon chat">&#128172;</div>
+      <h3>AI Chat Assistant</h3>
+      <p>Employees ask questions, brainstorm ideas, and get instant answers — all from a branded chat interface that knows your company.</p>
+    </div>
+    <div class="product-card">
+      <div class="card-icon docs">&#128196;</div>
+      <h3>Document Creation</h3>
+      <p>Generate letters, memos, proposals, and reports from a simple description. Review, refine, and download — done in minutes.</p>
+    </div>
+    <div class="product-card">
+      <div class="card-icon present">&#128202;</div>
+      <h3>Presentation Builder</h3>
+      <p>Describe your presentation and get a polished slide deck. Iterate conversationally until it's exactly right.</p>
+    </div>
+    <div class="product-card">
+      <div class="card-icon sheets">&#128203;</div>
+      <h3>Spreadsheet Generator</h3>
+      <p>Budgets, trackers, reports with formulas — built from a description and ready to download as Excel files.</p>
+    </div>
+    <div class="product-card">
+      <div class="card-icon knowledge">&#128218;</div>
+      <h3>Company Knowledge Base</h3>
+      <p>Upload your SOPs, handbooks, price lists, and policies. Your assistant learns from them and answers employee questions accurately.</p>
+    </div>
+    <div class="product-card">
+      <div class="card-icon brand">&#127912;</div>
+      <h3>Your Brand, Front &amp; Center</h3>
+      <p>Your logo, your colors, your assistant name. Employees see your brand on every screen — not ours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-header">
+    <div class="section-tag">How It Works</div>
+    <h2>Up and running in minutes</h2>
+    <p>No IT department needed. No complicated setup. No training videos.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Set up your portal</h3>
+        <p>Create your organization, upload your logo, choose your brand colors, and name your AI assistant. Takes about 5 minutes.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Upload your company documents</h3>
+        <p>Drag and drop your handbooks, SOPs, price lists, contracts — anything your team needs to reference. Your assistant will use these to give accurate, company-specific answers.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Invite your team</h3>
+        <p>Add employees by email. They log in to your branded portal and start working immediately. No training needed — the dashboard guides them.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>Your team gets superpowers</h3>
+        <p>Employees ask questions, create documents, build presentations, and search company knowledge — all through one simple interface branded as your own tool.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-header">
+    <div class="section-tag">Simple Pricing</div>
+    <h2>One plan for your whole team</h2>
+    <p>No per-seat fees. No surprise charges. Just a flat monthly price based on your team size and usage.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-amount">$199<span>/mo</span></div>
+      <div class="price-desc">For small teams getting started</div>
+      <ul class="price-features">
+        <li>Up to 5 users</li>
+        <li>500 AI conversations / month</li>
+        <li>2 GB document storage</li>
+        <li>Document &amp; spreadsheet generation</li>
+        <li>Custom branding</li>
+        <li>Email support</li>
+      </ul>
+      <button class="price-btn outline" onclick="scrollTo('#waitlist')">Join Waitlist</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-tier">Business</div>
+      <div class="price-amount">$399<span>/mo</span></div>
+      <div class="price-desc">For growing teams that need more</div>
+      <ul class="price-features">
+        <li>Up to 15 users</li>
+        <li>2,000 AI conversations / month</li>
+        <li>10 GB document storage</li>
+        <li>Full document suite (DOCX, PPTX, XLSX)</li>
+        <li>Custom branding + subdomain</li>
+        <li>Priority support</li>
+      </ul>
+      <button class="price-btn primary" onclick="scrollTo('#waitlist')">Join Waitlist</button>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Professional</div>
+      <div class="price-amount">$599<span>/mo</span></div>
+      <div class="price-desc">For larger teams with advanced needs</div>
+      <ul class="price-features">
+        <li>Up to 50 users</li>
+        <li>Unlimited AI conversations</li>
+        <li>50 GB document storage</li>
+        <li>Full document suite</li>
+        <li>Custom domain + SSO</li>
+        <li>Dedicated support</li>
+      </ul>
+      <button class="price-btn outline" onclick="scrollTo('#waitlist')">Join Waitlist</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / WAITLIST -->
+<section class="cta-section" id="waitlist">
+  <h2>Get early access to Sidekick</h2>
+  <p>We're onboarding our first group of businesses now. Join the waitlist and be among the first to give your team an AI Sidekick.</p>
+  <div class="waitlist-form" id="waitlistForm">
+    <div class="waitlist-row">
+      <input type="text" placeholder="First name" id="firstName" required>
+      <input type="text" placeholder="Last name" id="lastName" required>
+    </div>
+    <input type="email" placeholder="Work email" id="emailInput" required>
+    <input type="text" placeholder="Company name" id="companyName" required>
+    <select id="teamSize">
+      <option value="" disabled selected style="color: var(--text-dim);">Team size</option>
+      <option value="1-5">1 &#8211; 5 employees</option>
+      <option value="6-15">6 &#8211; 15 employees</option>
+      <option value="16-50">16 &#8211; 50 employees</option>
+      <option value="51+">51+ employees</option>
+    </select>
+    <button onclick="submitWaitlist()">Join the Waitlist &#8594;</button>
+  </div>
+  <div class="success-msg" id="successMsg">
+    &#10003; You're on the list! We'll be in touch soon.
+  </div>
+  <p class="waitlist-note">No credit card required. We'll reach out to schedule a personalized demo and setup.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <img src="taurus-logo-transparent.png" alt="Taurus Technology Solutions">
+    <div class="footer-info">
+      <span>&copy; 2026 Taurus Technology Solutions LLC. All rights reserved.</span>
+      <span class="footer-address">455 Market St Ste 1940 #936407, San Francisco, CA 94105</span>
+      <span class="footer-domain"><a href="https://sidekick-app.ai" style="color: var(--text-dim); text-decoration: none;">sidekick-app.ai</a></span>
+    </div>
+  </div>
+  <div class="footer-right">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+function scrollTo(selector) {
+  document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+}
+
+function submitWaitlist() {
+  const first = document.getElementById('firstName').value.trim();
+  const last = document.getElementById('lastName').value.trim();
+  const email = document.getElementById('emailInput').value.trim();
+  const company = document.getElementById('companyName').value.trim();
+  const teamSize = document.getElementById('teamSize').value;
+  if (first && last && email && email.includes('@') && company && teamSize) {
+    document.getElementById('waitlistForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  } else {
+    // Highlight empty fields
+    ['firstName','lastName','emailInput','companyName','teamSize'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (!el.value || el.value.trim() === '') {
+        el.style.borderColor = '#ef4444';
+        setTimeout(function() { el.style.borderColor = ''; }, 2000);
+      }
+    });
+  }
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
