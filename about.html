@@ -194,6 +194,13 @@ a.hl:hover { border-bottom-color:var(--lime); }
 .svc:nth-child(3)::before, .svc:nth-child(3)::after { animation-delay:-1.8s; }
 .svc:nth-child(4)::before, .svc:nth-child(4)::after { animation-delay:-2.7s; }
 @keyframes beamPulse { 0%, 100% { opacity:0.08; } 50% { opacity:0.85; } }
+.btn-beam { position:relative; }
+.btn-beam::before, .btn-beam::after { content:""; position:absolute; inset:-1px; border-radius:11px; padding:1.5px; pointer-events:none; opacity:0;
+  background:linear-gradient(135deg, rgba(236,255,190,0.95), rgba(216,254,145,0.5) 45%, rgba(216,254,145,0.18));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  animation:beamPulse 3.6s ease-in-out infinite; }
+.btn-beam::after { filter:blur(6px); }
 .svc:hover { border-color:rgba(216,254,145,0.32); background:#151815; transform:translateY(-4px); }
 .svc .tag { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:22px; }
 .svc h3 { font-family:var(--serif); font-weight:400; font-size:23px; line-height:1.15; color:var(--white); margin-bottom:8px; }
@@ -453,7 +460,7 @@ footer { position:relative; border-top:1px solid var(--line); overflow:hidden; }
   .reveal { opacity:1; transform:none; transition:none; }
   .btn, .chan, .svc { transition:none; }
   .trust-track { animation:none; }
-  .svc::before, .svc::after { animation:none; }
+  .svc::before, .svc::after, .btn-beam::before, .btn-beam::after { animation:none; }
 }
 </style>
 <style>
@@ -531,15 +538,14 @@ footer { position:relative; border-top:1px solid var(--line); overflow:hidden; }
           <div class="fc">Company</div>
           <ul>
             <li><a href="/#services">Services</a></li>
-            <li><a href="/#method">Our Approach</a></li>
+            <li><a href="/testimonials">Testimonials</a></li>
             <li><a href="/about">About us</a></li>
           </ul>
         </div>
         <div class="foot-col">
           <div class="fc">Get started</div>
           <ul>
-            <li><a href="/#contact">Book a session</a></li>
-            <li><a href="/#services">Pricing</a></li>
+            <li><a href="https://calendly.com/mike-taurustechnology/15-minute-intro-call" target="_blank" rel="noopener">Book an intro call</a></li>
           </ul>
         </div>
       </div>
